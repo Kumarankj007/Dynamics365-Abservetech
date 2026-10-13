@@ -1,92 +1,142 @@
-# dynamics365
+# Dynamics 365 Course Marketplace Frontend
 
+## Overview
+This is the frontend application for a comprehensive e-learning marketplace designed for buying, selling, and managing courses focused on **Microsoft Dynamics 365** and **Enterprise AI**. The platform provides a streamlined storefront for learners to purchase educational content and a management interface for course instructors and administrators.
 
+## Core Features
+* **Course Marketplace:** Browse, filter, and securely purchase training courses related to enterprise business applications.
+* **Dynamics 365 Specializations:** Dedicated learning tracks and assets featuring high-quality content for:
+  * Dynamics 365 Sales
+  * Dynamics 365 Finance & Operations (F&O)
+  * Dynamics 365 Customer Service
+  * Microsoft Dataverse
+* **AI-Enhanced Learning Experience:** Incorporates immersive visual assets for AI mentors, circuit teachers, whiteboard instructors, and virtual coaches to visually guide students through the curriculum.
+* **Admin & Instructor Portal:** Interfaces mapped by static assets (`admin.png`, `admin.jpg`) for administrators to manage curriculum, track sales, and oversee student enrollments.
+* **Custom Error Handling:** Branded fallback screens utilizing custom graphics (`Page-not-found.svg`, `errorImage.webp`) for improved user experience during navigation errors.
 
-## Getting started
+## Tech Stack
+* **Framework:** Next.js (configured via `next.config.ts`)
+* **Language:** TypeScript
+* **Styling:** Tailwind CSS (configured via `postcss.config.mjs`)
+* **Linting:** ESLint (`eslint.config.mjs`)
+* **Package Manager:** npm (`package-lock.json`, `package.json`)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+# Project Structure
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Below is the recommended and organized directory structure for the **Dynamics 365 Course Marketplace Frontend**, following modern Next.js (App Router) best practices combined with the configuration and asset files provided in the repository.
 
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
+```text
+dynamics365-dynamic365-frontend/
+│
+├── public/                         # Publicly accessible static assets
+│   └── assets/                     # Application images and icons
+│       ├── ai-*.jpeg               # AI mentor/coach visual assets (e.g., ai-agent-circuit.jpeg)
+│       ├── dynamics-*.jpeg         # D365 module icons (Sales, CS, F&O, Dataverse)
+│       ├── hero-bg-*.jpg           # Hero background banners
+│       ├── admin.png / admin.jpg   # Admin dashboard placeholder graphics
+│       ├── Page-not-found.svg      # Custom 404 vector graphic
+│       └── errorImage.webp         # Fallback error image
+│
+├── src/                            # Main application source code
+│   ├── app/                        # Next.js App Router directory
+│   │   ├── (auth)/                 # Route group for authentication
+│   │   │   ├── login/page.tsx      # Student and Instructor login
+│   │   │   └── register/page.tsx   # Account creation
+│   │   │
+│   │   ├── (storefront)/           # Route group for the public marketplace
+│   │   │   ├── courses/            # Course catalog and filtering
+│   │   │   ├── checkout/           # Shopping cart and payment flow
+│   │   │   └── page.tsx            # Main landing page / Home
+│   │   │
+│   │   ├── (learning)/             # Route group for student dashboard
+│   │   │   ├── dashboard/          # Student enrolled courses overview
+│   │   │   └── lesson/[id]/        # Video player and AI mentor interface
+│   │   │
+│   │   ├── admin/                  # Administrative and Instructor portal
+│   │   │   ├── analytics/          # Sales and enrollment tracking
+│   │   │   └── courses/            # Course creation and publishing
+│   │   │
+│   │   ├── api/                    # Next.js API Route Handlers (Backend BFF)
+│   │   ├── layout.tsx              # Root HTML layout and global providers
+│   │   ├── not-found.tsx           # Global 404 page utilizing Page-not-found.svg
+│   │   └── globals.css             # Global Tailwind CSS imports
+│   │
+│   ├── components/                 # Reusable React components
+│   │   ├── ui/                     # Generic UI elements (Buttons, Inputs, Modals)
+│   │   ├── course/                 # Course cards, curriculum lists, video players
+│   │   ├── layout/                 # Navbar, Footer, Sidebar
+│   │   └── ai/                     # AI assistant chat interfaces and coach modals
+│   │
+│   ├── lib/                        # Utility functions and shared logic
+│   │   ├── utils.ts                # Tailwind class mergers and formatters
+│   │   └── api.ts                  # Axios/Fetch wrappers for backend communication
+│   │
+│   ├── hooks/                      # Custom React hooks (e.g., useCart, useAuth)
+│   │
+│   └── types/                      # Global TypeScript definitions and interfaces
+│       └── index.d.ts              # Interface models (Course, User, Order)
+│
+├── .gitignore                      # Git ignored files and directories
+├── eslint.config.mjs               # ESLint code quality rules
+├── next.config.ts                  # Next.js compiler and build settings
+├── package.json                    # Project dependencies and npm scripts
+├── package-lock.json               # Deterministic dependency tree
+├── postcss.config.mjs              # PostCSS configuration for Tailwind
+└── README.md                       # Project documentation
 ```
-cd existing_repo
-git remote add origin https://git.abserve.tech:8001/react/dynamics365.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://git.abserve.tech:8001/react/dynamics365/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+1. **Install dependencies**
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+   Using npm:
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+   ```bash
+   npm install
+   ```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+   Using yarn:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+   ```bash
+   yarn install
+   ```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+   Using pnpm:
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+   ```bash
+   pnpm install
+   ```
 
-## License
-For open source projects, say how it is licensed.
+2. **Configure environment variables**
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+   Copy the example environment file and update it with your own values:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   See [Environment Variables](#environment-variables) for the required keys.
+
+3. **Run the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Environment Variables
+
+Create a `.env.local` file in the project root. The following variables are typically required:
+
+```env
+# Public API endpoint for fetching properties and templates
+NEXT_PUBLIC_API_URL=
+
+# Node environment
+NODE_ENV=development
+```
+
+> ⚠️ **Note:** Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Never store sensitive secrets in them.
